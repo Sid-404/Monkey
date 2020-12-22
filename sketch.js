@@ -1,9 +1,11 @@
-
+ 
 var monkey , monkey_running
 var banana ,bananaImage, obstacle, obstacleImage
 var score;
 var survivalTime=0;
 var ground; 
+var PLAY=1;
+var END=0;
 
 function preload(){
   
@@ -13,8 +15,6 @@ function preload(){
   bananaImage = loadImage("banana.png");
   obstaceImage = loadImage("obstacle.png");
  
-  bananaImage=loadImage("banana.png");
-  obstacleImage=loadImage("obstacle.png");
 }
 
 
@@ -53,6 +53,16 @@ function draw() {
   fruits();
   obstacles();
   drawSprites(); 
+  
+  if(obstacleGroup.isTouching(monkey)){ 
+    ground.velocityX = 0; 
+    monkey.velocityY = 0;                                                       obstacleGroup.setVelocityXEach(0); 
+    foodGroup.setVelocityXEach(0); 
+    obstacleGroup.setLifetimeEach(-1); 
+    foodGroup.setLifetimeEach(-1); 
+    foodGroup.destroyEach();
+    obstacleGroup.destroyEach();
+  }
 }
 
 function fruits(){
